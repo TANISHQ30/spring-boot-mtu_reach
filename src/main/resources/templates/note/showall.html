@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Show all notes</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div th:class="@{text-center m-5}">
+    <div th:if="${#lists.isEmpty(notes)}">
+        <h2 th:text="#{note.notFound}" class="my-5 pt-5">No notes found in the database</h2>
+        <h5 th:text="#{note.notFoundMsg}" class="my-2">Please wait for mentor to assign notes to mentees to the system</h5>
+    </div>
+    <div th:if="${! #lists.isEmpty(notes)}">
+        <h1 th:text="#{note.assignedNotes}"></h1>
+        <div th:class="@{mx-auto w-75 mt-5}">
+            <table th:class="@{table table-bordered}">
+                <thead th:class="@{table-dark}">
+                    <th th:text="#{note.noteId}"></th>
+                    <th th:text="#{note.dateCreated}"></th>
+                    <th th:text="#{note.text}"></th>
+                    <th th:text="#{note.showNoteForMentee}"></th>
+                </thead>
+                <tr th:each="note, iterationCount: ${notes}" th:class="${iterationCount.odd}? 'odd'" th:object="${note}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{#temporals.format(created, 'dd-MMM-yyyy HH:MM:SS')}"></td>
+                    <td th:text="*{text}"></td>
+                    <td><a th:text="*{noteMentee.firstName} + ' ' + *{noteMentee.surname}" th:href="'/note/' + *{noteMentee.menteeId}"></a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<div th:replace="fragments/footer :: footer"></div>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div th:class="@{text-center m-5}">
+    <h1 th:text="#{user.detaisOfAllUsers}"></h1>
+    <div th:class="@{mx-auto w-75 mt-5}">
+        <table th:class="@{table table-bordered}">
+            <thead th:class="@{table-dark}">
+                <th th:text="#{index.email}">Email</th>
+                <th th:text="#{index.password}">Password</th>
+                <th th:text="#{index.firstName}">First name</th>
+                <th th:text="#{index.lastName}">Last name</th>
+                <th th:text="#{user.role}">Role</th>
+            </thead>
+            <tr th:each="user, iterationCount: ${users}" th:class="${iterationCount.odd}? 'odd'" th:object="${user}">
+                <td th:text="*{email}"></td>
+                <td th:text="*{password}"></td>
+                <td th:text="*{firstName}"></td>
+                <td th:text="*{lastName}"></td>
+                <td th:text="*{role}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div th:class="@{mx-auto justify-center text-center p-5}">
+    <img th:src="@{/assets/mtu_logo.jpg}" alt="MTU-logo" width="800" height="345">
+    <h1 th:class="@{m-2}">404 Not found</h1>
+    <h5 th:class="@{mt-5}">The Mentee with id = <span th:text="${menteeId}"></span> does not exist in the database</h5>
+</div>
+</body>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</html>

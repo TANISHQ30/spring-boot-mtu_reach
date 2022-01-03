@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<body>
+<head>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="my-10 text-center">
+    <h1 class="mt-5">MTU Reach</h1>
+    <h5 class="my-5" th:text="#{404.notAuthorized}">You are not Authorized to view this page</h5>
+</div>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</body>
+</html>

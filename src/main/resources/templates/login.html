@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+<body>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<section class="vh-100" style="background-color: #ffffff;">
+  <div th:replace="fragments/header :: header"></div>
+  <div class="container py-5 mt-5 h-95">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <form method="post" th:action="@{/login}" class="form-horizontal">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+
+              <h2 class="mb-5" th:text="#{index.signIn}">Sign in</h2>
+
+              <div class="form-outline mb-4">
+                <label class="form-label" for="username" th:text="#{index.email}">Email</label>
+                <input class="form-control form-control-lg" id="username" type="email" name="username" required/>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label" for="password" th:text="#{index.password}">Password</label>
+                <input type="password" id="password" class="form-control form-control-lg" name="password" required/>
+              </div>
+
+              <hr class="my-4">
+
+              <div th:if="${param.error}" class="alert alert-danger">
+                <p>Invalid username and password.</p>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-md btn-block" value="Login" th:text="#{index.login}">Login</button>
+
+              <!--<button class="btn btn-primary btn-md btn-block" type="submit" value="Login">Login</button>-->
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

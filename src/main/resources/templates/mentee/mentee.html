@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+  <div th:class="@{text-center m-5}">
+    <h1>Details for <span th:text="${mentee.firstName}"></span> <span th:text="${mentee.surname}"></span></h1>
+    <div class="mx-lg-5">
+      <div class="mx-lg-5 px-lg-5 my-3">
+        <h5 th:text="#{mentee.menteeId} + ' : ' + ${mentee.menteeId}"></h5>
+        <h5 th:text="#{index.email} + ' : ' + ${mentee.email}"></h5>
+        <h5 th:text="#{index.firstName} + ' : ' + ${mentee.firstName}"></h5>
+        <h5 th:text="#{index.lastName} + ' : ' + ${mentee.surname}"></h5>
+        <hr class="mt-4 mb-4">
+        <h5>Notes for the student below</h5>
+      </div>
+    <div th:class="@{mx-auto w-75 mt-2}">
+      <table th:class="@{table table-bordered}">
+        <thead th:class="@{table-dark}">
+          <th th:text="#{note.noteId}"></th>
+          <th th:text="#{note.dateCreated}"></th>
+          <th th:text="#{note.text}"></th>
+          <th th:text="#{note.noteForMentee}"></th>
+        </thead>
+        <tr th:each="note, iterationCount: ${mentee.noteForMentee}" th:class="${iterationCount.odd}? 'odd'" th:object="${note}">
+          <td th:text="*{id}"></td>
+          <td th:text="*{#temporals.format(created, 'dd-MMM-yyyy HH:MM:SS')}"></td>
+          <td th:text="*{text}"></td>
+          <td th:text="*{noteMentee.firstName} + ' ' + *{noteMentee.surname}"></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+  </div>
+</body>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Show notes for a mentee</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div th:class="@{text-center m-5}">
+    <div th:if="${#lists.isEmpty(notes)}">
+        <h2 th:text="#{note.notFound}" class="my-5 pt-5">No notes found in the database</h2>
+        <h5 th:text="#{note.notFoundMsg}" class="my-2">Please add note for mentee below</h5>
+    </div>
+    <div class="" th:if="${! #lists.isEmpty(notes)}">
+         <h1 th:text="#{note.allNotes} + ' ' + ${mentee.firstName} + ' ' + ${mentee.surname}"></h1>
+        <div th:class="@{mx-auto w-50 mt-5}">
+            <table th:class="@{table table-bordered}">
+                <thead th:class="@{table-dark}">
+                    <th th:text="#{note.noteId}"></th>
+                    <th th:text="#{note.dateCreated}"></th>
+                    <th th:text="#{note.text}"></th>
+                    <!--<th th:text="#{note.noteForMentee}"></th>-->
+                </thead>
+                <tr th:each="note, iterationCount: ${notes}" th:class="${iterationCount.odd}? 'odd'" th:object="${note}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{created}"></td>
+                    <td th:text="*{text}"></td>
+                    <!--<td th:text="*{noteMentee.firstName} + ' ' + *{noteMentee.surname}"></td>-->
+               </tr>
+           </table>
+       </div>
+       <div class="mx-auto my-5">
+           <button
+                   sec:authorize="hasRole('REACH_MENTOR')"
+                   type="button" class="btn btn-dark p-3 mt-5"
+                   th:text="#{note.addNote} + ' ' + ${mentee.firstName} + ' ' + ${mentee.surname}"
+                   th:onclick="'window.location.href = \'' + @{'/note/' + ${mentee.menteeId} + '/add'} + '\''">
+           </button>
+       </div>
+    </div>
+</div>
+</body>
+<div th:replace="fragments/footer :: footer"></div>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+
+<div class="mx-lg-5">
+
+    <form method="post" th:action="@{/mentee/add/save}" th:object="${newMenteeForm}" class="mx-lg-5 px-lg-5 my-5">
+        <br><h1 class="my-lg-5" th:text="#{mentee.addMentee}">Add a new Mentee</h1>
+        <label for="email" th:text="#{index.email}"></label><br>
+        <input type="text" class="col-4" th:field="*{email}" id="email">
+        <span th:if="${#fields.hasErrors('email')}" class="error" th:errors="*{email}"></span>
+
+        <br><br><label for="firstName" th:text="#{index.firstName}"></label><br>
+        <input type="text" class="col-4" th:field="*{firstName}" id="firstName">
+        <span th:if="${#fields.hasErrors('firstName')}" class="error" th:errors="*{firstName}"></span>
+
+        <br><br><label for="lastName" th:text="#{index.lastName}"></label><br>
+        <input type="text" class="col-4" th:field="*{lastName}" id="lastName">
+        <span th:if="${#fields.hasErrors('lastName')}" class="error" th:errors="*{lastName}"></span>
+
+        <br><br><br><br><button type="submit" class="btn btn-primary align-item-center p-3" th:text="#{mentee.saveMentee}" th:value="#{submit}">Save</button>
+
+    </form>
+</div>
+</body>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</html>

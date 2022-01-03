@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div th:class="@{text-center my-5}">
+    <div class="d-flex justify-content-center align-items-center mx-auto">
+        <div class="mx-5">
+            <button
+                    type="button"
+                    class="btn btn-outline-secondary p-2 mx-2"
+                    th:text="#{mentee.showAllMentees}"
+                    th:onclick="'window.location.href = \'' + @{/mentee/showall} + '\''">
+            </button>
+            <button
+                    type="button"
+                    class="btn btn-outline-secondary p-2 mx-2"
+                    sec:authorize="hasAnyRole('REACH_MENTOR', 'REACH_ADMIN')"
+                    th:text="#{mentee.inactiveMentees}"
+                    th:onclick="'window.location.href = \'' + @{/mentee/inactive} + '\''">
+            </button>
+            <button
+                    type="button"
+                    class="btn btn-outline-secondary p-2 mx-2"
+                    sec:authorize="hasAnyRole('REACH_REVIEWER', 'REACH_ADMIN')"
+                    th:text="#{mentee.activeMentees}"
+                    th:onclick="'window.location.href = \'' + @{/mentee/active} + '\''">
+            </button>
+        </div>
+        <div class="input-group col-2 mx-5">
+            <form th:action="@{/mentee/search}" method="get">
+                <input
+                       type="text"
+                       size="w-50"
+                       name="keyword"
+                       id="keyword"
+                       placeholder="Search by mentee id"
+                       th:value="${keyword}" required/>
+                <button type="submit" class="btn btn-outline-primary" th:text="#{index.search}">search</button>
+                <!--<span th:if="${#fields.hasErrors('menteeId')}" class="error" th:errors="*{menteeId}"></span>-->
+            </form>
+        </div>
+    </div>
+    <div th:if="${not #lists.isEmpty(mentees)}">
+        <div th:class="@{mx-auto w-75 mt-5}">
+            <table th:class="@{table table-bordered}">
+                <thead th:class="@{table-dark}">
+                    <th th:text="#{mentee.menteeId}">Mentee ID</th>
+                    <th th:text="#{index.email}">Email</th>
+                    <th th:text="#{index.firstName}">First name</th>
+                    <th th:text="#{index.lastName}">Last name</th>
+                    <th th:text="#{note.showNoteForMentee}"></th>
+                    <th sec:authorize="hasRole('REACH_MENTOR')" th:text="#{mentee.deleteMentee}"></th>
+                </thead>
+                <tr th:each="mentee, iterationCount: ${mentees}" th:class="${iterationCount.odd}? 'odd'" th:object="${mentee}">
+                    <td><a th:text="*{menteeId}" th:href="'/mentee/' + *{menteeId}"></a></td>
+                    <td th:text="*{email}"></td>
+                    <td th:text="*{firstName}"></td>
+                    <td th:text="*{surname}"></td>
+                    <td><a th:href="'/note/' + *{menteeId}"><i class="material-icons">note_add</i></a></td>
+                    <td sec:authorize="hasRole('REACH_MENTOR')"><a th:href="'/mentee/delete/' + *{menteeId}"><i class="material-icons">delete_forever</i></a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(mentees)}">
+        <h2 class="my-5 pt-5">No mentee's found in the database</h2>
+        <h5 class="my-2" sec:authorize="hasRole('REACH_MENTOR')">Please add a mentee below</h5>
+        <h5 class="my-2" sec:authorize="hasAnyRole('REACH_REVIEWER', 'REACH_Admin')">Please wait for mentor to add mentee's to the system</h5>
+    </div>
+    <div class="mx-auto my-5">
+        <button sec:authorize="hasRole('REACH_MENTOR')" type="button" class="btn btn-dark p-3 mt-5" th:text="#{mentee.addMentee}" th:onclick="'window.location.href = \'' + @{/mentee/add} + '\''">Add new Mentee</button>
+    </div>
+</div>
+</body>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</html>

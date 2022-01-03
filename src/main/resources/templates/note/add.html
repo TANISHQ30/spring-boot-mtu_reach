@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a note</title>
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+
+<div class="mx-lg-5">
+
+    <form method="post" th:action="@{'/note/' + ${mentee.menteeId} + '/add/save'}" th:object="${newNoteForm}" class="mx-lg-5 px-lg-5 my-5">
+        <br>
+        <br><h1 class="my-lg-5" th:text="#{note.addNote} + ' ' + ${mentee.firstName} + ' ' + ${mentee.surname}">Add a new Note</h1>
+        <label for="noteText" th:text="#{note.text}"></label><br>
+        <input type="text" class="col-4" th:field="*{text}" id="noteText">
+        <span th:if="${#fields.hasErrors('text')}" class="error" th:errors="*{text}"></span>
+        <br><br>
+        <button type="submit" class="btn btn-dark p-3 mt-5" th:text="#{note.saveNote}"></button>
+    </form>
+</div>
+</body>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</html>

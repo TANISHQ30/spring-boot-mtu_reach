@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extra-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+
+<div class="my-10 text-center">
+    <h1 class="my-5" sec:authorize="!isAuthenticated()" th:text="#{index.welcome}">Welcome to MTU Reach</h1>
+    <h3 class="my-3" sec:authorize="!isAuthenticated()">Please login to the application to continue</h3>
+    <h1 class="my-5" sec:authorize="isAuthenticated()">Login successful</h1>
+    <h3 class="mt-5" sec:authorize="isAuthenticated()" th:text="#{index.welcomeMessage}">Use the navigation bar to navigate through the application</h3>
+</div>
+
+</body>
+<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</html>
