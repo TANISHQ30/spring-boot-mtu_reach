@@ -1,7 +1,7 @@
 # spring-boot-mtu_reach
 An application created with Spring-boot and Thymeleaf to allow a mentor to make notes about a mentee(student)
 
-## Problem statement
+#### Problem statement
 
 I am part of MTU's REACH programme which aims to establish meaningful relationships between students and academic staff. 
 I have been assigned students (mentees). I need a system to allow me to make notes about mentees. These notes must be date stamped so I can view the history of my interactions with the student.
